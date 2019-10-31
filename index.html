@@ -3,10 +3,32 @@ layout: default
 title: Home
 ---
 
+<style>
+  .showcase-container {
+    background-color: dimgrey; padding: 4%; padding-top: 2%;
+  }
+  .showcase-container h2 {
+    color: #FFCAB1;
+  }
+  .showcase-container p {
+    padding-top: 10px; color: #FCFCFC;
+  }
+  .embed-container {
+    position: relative; padding-bottom: 24%; height: 0;
+    overflow: hidden; max-width: 100%; height: auto;
+  }
+  .embed-container iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  }
+</style>
 
 <div>
-	<h1>Hi there, I'm hianhianhian!</h1>
-  <p>I try my best to make games that interest me. Occassionally I write my thoughts on games and game design. </p>
-  
-  <iframe frameborder="0" src="https://itch.io/embed/500538?linkback=true&amp;bg_color=222&amp;fg_color=fff&amp;border_color=535353" width="552" height="167"></iframe>
+	<h1>Games I've Worked On</h1>
+	<div class="showcase-container">
+    <h2>Soul Food</h2>
+    <div class="embed-container">
+      <iframe frameborder="0" src="https://itch.io/embed/500538?linkback=true&amp;bg_color=222&amp;fg_color=fff&amp;border_color=535353" width="552" height="167"></iframe>
+    </div>
+    <p>Soul Food is a game I worked on for the Gentle Ghost Jam.</p>
+	</div>
 </div>
