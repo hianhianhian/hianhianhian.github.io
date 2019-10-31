@@ -19,8 +19,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   hianhianhian | gamedev
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-# twitter_username: hianhianhian_
-# github_username:  hianhianhian
+twitter_username: hianhianhian_
+github_username:  hianhianhian
 
 # Build settings
 markdown: kramdown
@@ -40,8 +40,8 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-minima:
-  social_links:
-    twitter: hianhianhian_
-    github: hianhianhian
+#minima:
+#  social_links:
+#    twitter: hianhianhian_
+#    github: hianhianhian
     
