@@ -23,6 +23,8 @@ url: "https://hianhianhian.com" # the base hostname & protocol for your site, e.
 twitter_username: hianhianhian_
 github_username:  hianhianhian
 linkedin_username: hianhianhian
+show_excerpts: true
+excerpt_separator: <!--more-->
 
 # Build settings
 markdown: kramdown
