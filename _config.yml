@@ -33,6 +33,7 @@ plugins:
 header_pages:
   - index.html
   - _pages/about.md
+  - _pages/blog.html
   
 include: ["_pages"]
 
