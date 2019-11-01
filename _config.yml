@@ -17,6 +17,7 @@ title: Hian to the Third Degree
 email: thehianhianhian@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   An aspiring gamedev's personal site.
+  Currently based in Malaysia.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://hianhianhian.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: hianhianhian_
@@ -28,11 +29,13 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jemoji
 
 # Only include these links for the header nav
 header_pages:
   - index.html
   - _pages/about.md
+  - _pages/resume.md
   - _pages/blog.html
   
 include: ["_pages"]

@@ -12,6 +12,19 @@ Towards the end of my bachelor's degree, the question of my future career path k
 
 Now, I'm intermediately-versed with Unreal Engine 4, I am getting used to Unreal Engine 4's flavour of C++, and most importantly, I shipped a game in a month! I've come a long way, but I have so much more to learn, and I am so ready to continue honing my skills and learning new things.
 
+## Favourite games (in no particular order):
+- Final Fantasy XIV Online
+- NieR: Automata
+- Undertale
+- Hyper Light Drifter
+- Bastion
+- Ori and the Blind Forest
+- Slay the Spire
+- Stardew Valley
+- Half-Life 1 & 2
+- Celeste
+- Portal 1 & 2
+
 ## Feel free to contact me at:
 [{{site.email}}](mailto:{{site.email}})
 

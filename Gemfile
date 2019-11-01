@@ -20,6 +20,7 @@ gem "github-pages", "~> 202", group: :jekyll_plugins
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.6"
+  gem "jemoji", "~> 0.10.2"
 end
 
 gem 'tzinfo', '~> 1.2'
