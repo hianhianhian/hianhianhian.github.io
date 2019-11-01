@@ -1,0 +1,80 @@
+---
+layout: default
+title: Soul Food
+permalink: /soul-food/
+---
+
+# [Soul Food](https://hianhianhian.itch.io/soul-food)
+## A post-mortem of sorts
+
+![Screenshot of the finished game](/images/soulfoodFinished.png)
+
+The final state of the game only showcased one character, which was all I had time to write for and produce art of. Because each character generally has 4 menu items with 4 ingredient items per dish, this equated to 20 food assets per character. Add one more large image for the character portraits and that's a lot of art for each character. 
+
+On the writing side of things, assuming that each ingredient averaged 4-5 responses, I would need to write 64-80 lines of monologue per character. That's a *huge* amount of work per character, for this size of project. The first character ended up using 105 lines of my spreadsheet, but this was partly due to having to split some texts into several lines, and adding extra bits of dialogue when the dish is served and when all of the character's dishes had been served.
+
+This project ended up being Blueprints only as the short timeframe required quick iterations, which wasn't possible with the long C++ compile and build times on my laptop. I'm pretty happy with how the game turned out, even though I struggled with art assets.
+
+### What went right
+
+1.  **Prototyping from the get-go**
+
+    Before I wrote any code at all, or started on anything for the project, I made sure that I had a solid idea of the scope of the project and what I wanted it to be. I had a few different ideas for the theme of the jam, but I knew that I wanted to make something small and personal about ghosts that are more human than we give them credit for. Funnily enough, my initial direction for this was a lot more sombre and dark, and involved being a bartender for ghosts. Fortunately for me, I learned that VA-11 HALL-A exists, so I immediately tried to switch lanes.
+
+    ![Picture of my paper mockup](/images/paper.jpg)
+
+    To start things off, I created a mockup of the menus, at first on paper, and then I translated it over to Krita to get the dimensions right. I liked how the top half of the screen was presented, with a strong emphasis on the ghost and a lot of space for the monologues. I played around with a couple more designs for the menu/ingredients UI until I came up with something I liked, and that felt more natural to click through. This was also around the time that I was finalising the main gameplay loop, so I ended up hand-animating my mockup within Krita! Probably overkill, but it was better than jumping into UE4 with a half-baked idea.
+
+    ![Final GIF of my mockup](/images/mockup.gif)
+
+    I showed the GIF to a few friends and they really seemed to like it, so I decided to push forward with the design. This ended up being super important for the development of the project as I had a clear vision of where I wanted the project to go from the start, with a rough idea of how each individual element would fit together. 
+
+2.  **Not getting caught up in the details**
+    
+    This is something I know I still struggle with but I'm getting better at prioritising what needs to get done. Knowing when to create an elaborate hierarchy of blueprints with clever little abstractions, and when to just hardcode the required behaviour is still a hard balance to strike for me. My dialogue system that I created for this game works pretty well, but it's custom-made for my specific project and is probably going to be hard to reuse for future projects. I could have created a very abstract "inventory" system for each dish/ingredient along with a more robust branching dialogue system, but they just weren't required for the design of the game.
+    
+    Especially towards the end of development during most of the polishing phase, a lot of things were thrown together crudely just because they only needed to be used once. For example, I wanted a short bit of text to show up when the tutorial character showed up on screen, but my dialogue system wasn't built to show dialogue without some kind of input from the player, so I just decided to hardcode the retrieval of those specific lines of dialogue from the data file.
+    
+3.  **Constant effort**
+
+    I tried my best to work on the game every, single day, even if it was just for 5 minutes or for the entire day. I've been prone to losing motivation midway through a project, so having a clear direction and knowing what I need to do ended up being a strong motivator for me to keep going forwards. Granted I did suffer the dreaded _mid-project slump_ when things started seeming a little too big even with appropriate scoping beforehand. However, I managed to get over that slump by just pushing myself to squeeze out a little bit of work each day until the little bits turned into bigger bits which just snowballed into getting back in the swing of things.
+    
+4. **Jokes as placeholders during development**
+
+    As a joke, I threw in a doggo to test out my different systems before I had any art or writing completed. This allowed me to quickly test things out _and_ have a laugh everytime I pet the doggo or gave it radioactive food.
+    
+### What went wrong
+
+1.  **Using the wrong engine**
+
+    You can definitely create a menu-based game in UE4, but that's like using your car to drive to the house next door, but along the way you have to drive through an obstacle course. It works, but you could have just walked. Don't get me wrong, UE4 is an amazing piece of software, and I don't think I've even come close scratching the surface of unleashing its full capabilities, but it just wasn't the right engine for this project.
+    
+    Even so, UE4 is the only engine I'm familiar with, and I didn't want to waste a week familiarising myself with another engine. I made the reasoning that I had little to no experience with creating UIs using UMG, so I decided it was worth the effort of learning the ins and outs of UMG. It turned out to be a great learning experience and I can confidently say I'm pretty good at creating UI in UE4 and hooking widgets up to actual game data.
+
+2.  **UI readability**
+
+    As I was programming the different elements, I quickly realised that it wasn't very feasible to assemble the dish on the plate in the way I had initially envisioned. Each dish would require custom formatting, and the art would have to be drawn as individual layers which might not make sense for some dishes that don't have such well-defined layers as a stack of bacon pancakes. Without thinking too much about it, I changed it so that the assembled dish would fade in as you added more ingredients, and each ingredient would have their own ingredient icons that fill up as you go. This was a pretty nice solution except for the fact that linear increases in opacity are not perceived very well, but I didn't really see it as a problem during development.
+
+    ![GIF of the game during development, showing how ingredient icons were added and the dish opacity increased](/images/soulfoodProgress1.gif)
+
+    Only after releasing the game and talking to a friend about it, it was clear that the opacity levels weren't designed very well, and other possible solutions could have involved showing the dish row by row, or having an explicit progress bar that shows how many more of each ingredients you needed to add.
+    
+3.  **Asset scope is still a thing**
+  
+    While the gameplay loops and the game design had been scoped pretty well, one thing that I didn't, or rather, failed to adequately account for was how long asset creation would take. I spent about a week just writing the monologues and creating all the art assets for one character. I could have looked around for creative commons sources of art, but the assets I needed were very specific and were unlikely to be available for free. I could have just filled them up with placeholder images, but that would immediately break the player's immersion.
+    
+    I made the call to just muddle through as much art as I could and see how long it would take, and then cut down whatever other content I had planned in order to make room for polish. While I would have liked to finish writing the other three characters I had planned, it was probably for the better that I delivered a fairly well-written (in my humble opinion) character with decent art rather than take the player out of the experience with placeholder art.
+
+### What to improve on for next time
+
+Figuring out an asset creation pipeline early on is something I will always keep in mind. It also wouldn't be a stretch to start off with lower-quality assets and then redo them with higher-quality ones later on, which I'm sure is what most studios do. 
+
+Considering asset creation when deciding the scope of the project is also pretty important, but not so much that it takes away from the design of the game.
+
+A more robust dialogue system would be pretty nice, as using a .csv file to load in dialogue lines, ingredient choices and menu choices is kind of a pain. However, I did explore a different option early on, which was to use UE4's AI Behaviour Trees to create the dialogue system. I decided against that route because it was very clunky to edit the entries within UE4 because you had to click on each individual tree node in order to get at its data, and that made it very unreadable. Maybe in the future, it might be nice to create a robust tool for editing and creating branching dialogues in UE4.
+
+## Closing thoughts
+
+Given everything, I'm pretty happy with how the game turned out! The design pretty much remained the same throughout the course of development, except for some improvements that were made along the way. It's definitely been a ride, that's for sure, and I've learned a lot along the way. While I did encounter some problems with trying to manage people and getting people to help out with sound and art, I think the overall progress was pretty smooth. I'm proud of the work I've achieved, but I know there's so much more I need to learn and that grounds me a lot. I can't wait to work on bigger projects.
+
+[Back to top](#)
