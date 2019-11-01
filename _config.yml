@@ -14,9 +14,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Hian to the Third Degree
-email: thehianhianhian@gmail.com
+email: thehianhianhian [at] gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  hianhianhian | gamedev
+  An aspiring gamedev's personal site.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: hianhianhian_
@@ -27,6 +27,11 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+
+# Only include these links for the header nav
+header_pages:
+  - about.md
+  - index.html
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

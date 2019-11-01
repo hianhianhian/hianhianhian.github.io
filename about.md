@@ -11,6 +11,6 @@ While I'm primarily more experienced with programming, I'm always open to pickin
 Towards the end of my bachelor's degree, the question of my future career path kept filling my mind and I finally put my foot down on game development. Not having an existing portfolio, I decided to spend a few months post-graduation to learn as much as I could about game development, and that's exactly what I did!
 
 ## Feel free to contact me at:
-thehianhianhian \[at\] gmail.com
+[{{site.email}}]
 
-[@hianhianhian_](https://twitter.com/hianhianhian_)
+[@{{site.twitter_username}}](https://twitter.com/hianhianhian_)
