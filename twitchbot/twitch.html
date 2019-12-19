@@ -1,0 +1,24 @@
+---
+layout: twitch_layout
+title: Twitch
+permalink: /twitch
+---
+ 
+  <div class="channel-form">
+    <input class="channel-text" type="text" id="channelText" name="channelText" placeholder="Enter a Twitch channel name">
+    <button class="connect-btn">Connect to chat</button>
+  </div>
+  <div id="chat"></div>
+
+  <script src="bot.js"></script>
+  <script>
+  $(document).ready(function(){
+    chatClient = new chatClient (opts);
+    chatClient.open();
+    $('.connect-btn').click(function(){
+      opts['channels'] = [channelText.value];
+      chatClient.reset(opts);
+    });
+  });
+  </script>
+

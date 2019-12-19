@@ -91,7 +91,6 @@ function badges(channel, user, isBot) {
 
 	if(!isBot) {
     if (user.badges) {
-      console.log(`Has badges`)
       if (user.badges.admin) {
         chatBadges.appendChild(createBadge('admin'));
       }
