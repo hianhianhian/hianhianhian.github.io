@@ -1,4 +1,4 @@
-//const tmi = require('tmi.js');
+// Adapted from https://gist.github.com/AlcaDesign/742d8cb82e3e93ad4205
 
 var fadeDelay = false, // Set to false to disable chat fade
     showChannel = true, // Show repespective channels if the channels is longer than 1
@@ -27,6 +27,10 @@ var opts = {
   },
   channels: channels
 };
+
+// variables to store channel's BTTV and FFZ emotes
+var bttvEmotes = new Map();
+var ffzEmotes = new Map();
 
 // Helper functions
 
@@ -58,24 +62,41 @@ function htmlEntities(html) {
 	return html;
 }
 
+// Twitch emote parsing from https://github.com/tmijs/tmi.js/issues/11
+// Altered with FFZ and BTTV emotes using code from https://www.reddit.com/r/Twitch/comments/4e22p6/parsing_twitch_emotes_js/
 function formatEmotes(text, emotes) {
 	var splitText = text.split('');
-	for(var i in emotes) {
-		var e = emotes[i];
-		for(var j in e) {
-			var mote = e[j];
-			if(typeof mote == 'string') {
-				mote = mote.split('-');
-				mote = [parseInt(mote[0]), parseInt(mote[1])];
-				var length =  mote[1] - mote[0],
-					empty = Array.apply(null, new Array(length + 1)).map(function() { return '' });
-				splitText = splitText.slice(0, mote[0]).concat(empty).concat(splitText.slice(mote[1] + 1, splitText.length));
-				// splitText.splice(mote[0], 1, '<img class="emoticon" src="https://cdn.frankerfacez.com/emoticon/' + i + '/3.0">');
-        splitText.splice(mote[0], 1, '<img class="emoticon" src="http://static-cdn.jtvnw.net/emoticons/v1/' + i + '/3.0">');
+	for(var emoteIndex in emotes) {
+		var emote = emotes[emoteIndex];
+		for(var charIndex in emote) {
+			var emoteIndexes = emote[charIndex];
+
+			if(typeof emoteIndexes == 'string') {
+				emoteIndexes = emoteIndexes.split('-');
+				emoteIndexes = [parseInt(emoteIndexes[0]), parseInt(emoteIndexes[1])];
+        for(var i = emoteIndexes[0]; i <= emoteIndexes[1]; ++i) {
+          splitText[i] = "";
+        }
+        splitText[emoteIndexes[0]] = '<img class="emoticon" src="https://static-cdn.jtvnw.net/emoticons/v1/' + emoteIndex + '/3.0">';
 			}
 		}
 	}
-	return htmlEntities(splitText).join('')
+  var tempMsg = splitText.join('').split(' ');
+  for (let i in tempMsg) {
+    if (ffzEmotes.has(tempMsg[i])) {
+      var url;  
+      for (let j in ffzEmotes.get(tempMsg[i])) {
+        url = ffzEmotes.get(tempMsg[i])[j]
+      }
+        tempMsg[i] = '<img class="emoticon" src="https://' + url + '">';
+    }
+    if (bttvEmotes.has(tempMsg[i])) {
+      tempMsg[i] = '<img class="emoticon" src="https://cdn.betterttv.net/emote/' + bttvEmotes.get(tempMsg[i]) + '/3x">';
+    }
+  }
+
+
+	return htmlEntities(tempMsg).join(' ')
 }
 
 function badges(channel, user, isBot) {
@@ -105,7 +126,6 @@ function badges(channel, user, isBot) {
       }
     }
     else {
-      console.log(`No badges`)
     }
 	// 	if(user.username == channel) {
 	// 		chatBadges.appendChild(createBadge('broadcaster'));
@@ -286,12 +306,48 @@ var previousChannel;
 chatClient.prototype.reset = function reset(options){
   if (previousChannel) {
     chatClient.client.part(previousChannel);
+    bttvEmotes.clear();
+    ffzEmotes.clear();
   }
-  console.log(`${this.options.channels[0]}`);
-  chatClient.client.join(this.options.channels[0]);
+  var currentChannel = this.options.channels[0];
+  console.log(`${currentChannel}`);
+  chatClient.client.join(currentChannel);
   console.log(`${previousChannel}`);
-  previousChannel = this.options.channels[0];
+  previousChannel = currentChannel;
 
+  fetch('https://api.betterttv.net/2/emotes').then( function(response) {
+    return response.json();
+  }).then(function(data) {
+    for (let i in data.emotes) {
+      bttvEmotes.set(data.emotes[i].code, data.emotes[i].id)
+    }
+  }).catch(function() {
+    console.log("BTTV Global emote fetching failed.");
+  });
+
+  fetch(`https://api.betterttv.net/2/channels/` + currentChannel).then( function(response) {
+    return response.json();
+  }).then(function(data) {
+    for (let i in data.emotes) {
+      bttvEmotes.set(data.emotes[i].code, data.emotes[i].id)
+    }
+  }).catch(function() {
+    console.log("BTTV Channel emote fetching failed.");
+  });
+
+  fetch(`https://api.frankerfacez.com/v1/room/` + currentChannel).then( function(response) {
+    return response.json();
+  }).then(function(data) {
+    ffzEmotes.clear();
+    for (const i in data.sets) {
+      let set = data.sets[i];
+      for (let j in set.emoticons) {
+        ffzEmotes.set(set.emoticons[j].name, set.emoticons[j].urls)
+      }
+    }
+  }).catch(function() {
+    console.log("FFZ Channel emote fetching failed.");
+  });
 }
 
 chatClient.prototype.open = function open(){
