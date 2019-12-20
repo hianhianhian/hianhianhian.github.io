@@ -17,3 +17,10 @@ function handleFullscreenChange(event) {
   let elem = event.target;
   let isFullscreen = document.fullscreenElement === elem;
 }
+
+
+
+function updateScroll(){
+  var element = document.getElementById('chat');
+  element.scrollTop = element.scrollHeight;
+}

@@ -1,3 +1,7 @@
+:root {
+	--subBadge-url: '';
+}
+
 html,body {
 	font-family: 'Roboto', sans-serif;
 	background-color: #f0f0ff;
@@ -6,7 +10,7 @@ html,body {
 }
 
 .chat-wrapper {
-	height: 85vmax;
+	height: 85vh;
 	width: 95%;
 	min-width: 700px;
 	padding: .5em;
@@ -17,10 +21,21 @@ html,body {
 }
 
 #chat {
-	padding: .5em;
 	overflow-y: scroll;
 	height: 100%;
 	width: 100%;
+}
+#chat::-webkit-scrollbar {
+	width: 6px;
+	height: 50%;
+	background-color: ##ffffff00;
+}
+#chat::-webkit-scrollbar-thumb {
+	background-color: #464646;
+}
+#chat::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: ##ffffff00;
 }
 
 .channel-form {
@@ -41,11 +56,11 @@ button {
 	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 	padding: 2px 12px;
 	margin: 0 10px;
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 }
 .connect-btn {
 	background-color: #9146FF;
-	color: #f0f0ff;
+	color: #ffffff;
 	float: right;
 }
 .fullscreen-btn {
@@ -54,6 +69,7 @@ button {
 	position: absolute;
 	top: 10px;
 	right: 30px;
+	padding: 6px 12px;
 }
 
 input[type="text"] {
@@ -194,10 +210,13 @@ input[type="text"] {
 	background-color: hsl(196, 100%, 50%);
 	background-image: url(https://static-cdn.jtvnw.net/badges/v1/a1dd5073-19c3-4911-8cb4-c464a7bc1510/2);
 }
-
 .chat-badge-moderator {
 	background-color: hsl(105, 89%, 36%);
 	background-image: url(https://static-cdn.jtvnw.net/chat-badges/mod.svg);
+}
+.chat-badge-global_mod {
+	background-color: hsl(105, 89%, 36%);
+	background-image: url(https://static-cdn.jtvnw.net/chat-badges/globalmod.svg);
 }
 .chat-badge-turbo {
 	background-color: hsl(261, 43%, 45%);
@@ -215,7 +234,13 @@ input[type="text"] {
 	background-color: hsl(268, 55%, 13%);
 	background-image: url(https://static-cdn.jtvnw.net/chat-badges/staff.svg);
 }
-.chat-badge-subscriber {
+.chat-badge-vip {
+	background-color: hsl(268, 55%, 13%);
+	background-image: url(https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/3);
+}
+.chat-badge-partner {
+	background-color: hsl(360, 100%, 100%);
+	background-image: url(https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3);
 }
 .chat-badge-bot {
 	background-image: url(https://cdn.betterttv.net/tags/bot.png);

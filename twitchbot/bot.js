@@ -23,10 +23,11 @@ var opts = {
   },
   identity: {
     username: 'hianbot',
-    password: 'oauth:82pr79g12rrgykqghj1ca052v3sexx'
+    password: 'oauth:i1n8gxfe7qgw2y3yym5xgxhsqt6po6'
   },
   channels: channels
 };
+var clientID = "e99lumfuxgscjd7y5mrnnxrqpmhctb";
 
 // variables to store channel's BTTV and FFZ emotes
 var bttvEmotes = new Map();
@@ -84,7 +85,7 @@ function formatEmotes(text, emotes) {
   var tempMsg = splitText.join('').split(' ');
   for (let i in tempMsg) {
     if (ffzEmotes.has(tempMsg[i])) {
-      var url;  
+      var url;
       for (let j in ffzEmotes.get(tempMsg[i])) {
         url = ffzEmotes.get(tempMsg[i])[j]
       }
@@ -121,11 +122,24 @@ function badges(channel, user, isBot) {
       if (user.badges.moderator) {
         chatBadges.appendChild(createBadge('moderator'));
       }
+      if (user.badges.vip) {
+        chatBadges.appendChild(createBadge('vip'));
+      }
+      if (user.badges.staff) {
+        chatBadges.appendChild(createBadge('staff'));
+      }
+      if (user.badges.subscriber) {
+        chatBadges.appendChild(createBadge('subscriber'))
+      }
+      if (user.badges.partner) {
+        chatBadges.appendChild(createBadge('partner'))
+      }
       if (user.badges.premium) {
         chatBadges.appendChild(createBadge('premium'));
       }
     }
-    else {
+    if (user.turbo) {
+      chatBadges.appendChild(createBadge('turbo'));
     }
 	// 	if(user.username == channel) {
 	// 		chatBadges.appendChild(createBadge('broadcaster'));
@@ -133,13 +147,10 @@ function badges(channel, user, isBot) {
 	// 	if(user['user-type']) {
 	// 		chatBadges.appendChild(createBadge(user['user-type']));
 	// 	}
-	// 	if(user.turbo) {
-	// 		chatBadges.appendChild(createBadge('turbo'));
-	// 	}
 	}
 
 	else {
-		chatChages.appendChild(createBadge('bot'));
+		chatBadges.appendChild(createBadge('bot'));
 	}
 
 	return chatBadges;
@@ -219,15 +230,10 @@ function hosting(channel, target, viewers, unhost) {
 	}
 }
 
-function updateScroll(){
-  var element = document.getElementById('chat');
-  element.scrollTop = element.scrollHeight;
-}
-
 // Display and parse chat
 function handleChat(channel, user, message, self) {
-  // str = JSON.stringify(user, null, 4);
-  // console.log(str);
+  str = JSON.stringify(user, null, 4);
+  console.log(str);
   var chan = dehash(channel),
     name = user.username,
     chatLine = document.createElement('div'),
@@ -302,6 +308,7 @@ var chatClient = function chatClient(options) {
 }
 
 var previousChannel;
+var channelID;
 
 chatClient.prototype.reset = function reset(options){
   if (previousChannel) {
@@ -314,6 +321,47 @@ chatClient.prototype.reset = function reset(options){
   chatClient.client.join(currentChannel);
   console.log(`${previousChannel}`);
   previousChannel = currentChannel;
+
+  // Get channel ID
+  fetch("https://api.twitch.tv/kraken/users?login=" + currentChannel, {
+    method: "GET",
+    headers: {
+      "Accept": "application/vnd.twitchtv.v5+json",
+      "Authorization": "OAuth 82pr79g12rrgykqghj1ca052v3sexx",
+      "Client-ID": clientID
+    }
+  }).then( function(response) {
+    return response.json();
+  }).then(function(data) {
+    channelID = data.users[0]._id;
+    console.log(channelID);
+
+    // Get channel badges using channel ID
+    // unfortunately this API only supports a limited list of badges, and new Twtich API doesn't have documentation for badges
+    fetch("https://api.twitch.tv/kraken/chat/" + channelID + "/badges", {
+      headers: {
+        Accept: "application/vnd.twitchtv.v5+json",
+        "Client-ID": clientID
+      }
+    }).then( function(response) {
+      return response.json();
+    }).then(function(data) {
+      subBadge = data.subscriber.image;
+      subBadge = subBadge.slice(0, -1);
+      console.log(subBadge)
+      var subBadgeStyle = document.createElement('style');
+      document.head.append(subBadgeStyle);
+      subBadgeStyle.innerHTML = ".chat-badge-subscriber {" +
+          "background-color: hsla(360, 100%, 100%, 0);" +
+        	"background-image: url(" + subBadge + "3);"
+          "}"
+    }).catch(function() {
+      console.log("Badge fetching failed.");
+    });
+
+  }).catch(function() {
+    console.log("Channel fetching failed.");
+  });
 
   fetch('https://api.betterttv.net/2/emotes').then( function(response) {
     return response.json();
