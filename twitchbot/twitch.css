@@ -5,35 +5,55 @@ html,body {
 	font-size: 24px;
 }
 
-#chat {
-	position: absolute;
-	bottom: 0px;
-	left: 0;
-	right: 0;
+.chat-wrapper {
+	height: 85vmax;
+	width: 95%;
+	min-width: 700px;
 	padding: .5em;
-	overflow-y: scroll;
-	height: 85vh;
 	margin: .8em;
 	background-color: #1f1f23;
+	display: flex;
+	position: relative;
+}
+
+#chat {
+	padding: .5em;
+	overflow-y: scroll;
+	height: 100%;
+	width: 100%;
 }
 
 .channel-form {
 	float: left;
+	position: sticky;
+	position: -webkit-sticky; /* Safari */
+	top: 0;
+	margin: 6px 0;
 	padding: 12px;
 	display: flex;
-	height: 5vh;
+	height: 5%;
+	min-height: 66px;
 	width: 720px;
 }
-.connect-btn {
+button {
 	font: 18px 'Montserrat', sans-serif;
-	background-color: #9146FF;
 	border-color: rgba(0,0,0,0.3);
 	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
-	color: #f0f0ff;
-	padding: 6px;
+	padding: 2px 12px;
 	margin: 0 10px;
 	letter-spacing: 2px;
+}
+.connect-btn {
+	background-color: #9146FF;
+	color: #f0f0ff;
 	float: right;
+}
+.fullscreen-btn {
+	background-color: #ffffff;
+	float: right;
+	position: absolute;
+	top: 10px;
+	right: 30px;
 }
 
 input[type="text"] {

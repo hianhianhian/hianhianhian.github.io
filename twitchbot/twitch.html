@@ -3,14 +3,18 @@ layout: twitch_layout
 title: Twitch
 permalink: /twitch
 ---
- 
+
   <div class="channel-form">
     <input class="channel-text" type="text" id="channelText" name="channelText" placeholder="Enter a Twitch channel name">
     <button class="connect-btn">Connect to chat</button>
   </div>
-  <div id="chat"></div>
+  <div class="chat-wrapper" id="chat-wrapper">
+    <div id="chat"></div>
+    <button class="fullscreen-btn">toggle fullscreen</button>
+  </div>
 
   <script src="/twitchbot/bot.js"></script>
+  <script src="/twitchbot/util.js"></script>
   <script>
   $(document).ready(function(){
     chatClient = new chatClient (opts);
@@ -18,6 +22,9 @@ permalink: /twitch
     $('.connect-btn').click(function(){
       opts['channels'] = [channelText.value];
       chatClient.reset(opts);
+    });
+    $('.fullscreen-btn').click(function(){
+      toggleFullscreen();
     });
     $('.channel-text').on("keydown", function(event) {
       if (event.keyCode === 13) {
@@ -27,4 +34,3 @@ permalink: /twitch
     });
   });
   </script>
-
