@@ -1,7 +1,7 @@
 ---
-layout: default
+layout: page
 title: Résumé
-permalink: /resume/
+permalink: /resume
 ---
 
 [View my abbreviated resume as a PDF](/assets/JasonChan_Resume2019.pdf)

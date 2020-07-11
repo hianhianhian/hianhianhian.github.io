@@ -24,6 +24,7 @@ twitter_username: hianhianhian_
 github_username:  hianhianhian
 linkedin_username: hianhianhian
 show_excerpts: true
+relative_permalinks: false
 excerpt_separator: <!--more-->
 
 # Build settings
@@ -36,12 +37,11 @@ plugins:
 # Only include these links for the header nav
 header_pages:
   - index.html
-  - _pages/about.md
-  - _pages/resume.md
-  - _pages/blog.html
-
+  - about.md
+  - resume.md
+  - blog.html
+  
 include:
-  - ["_pages"]
   - ["_layouts"]
 
 google_analytics: UA-154888531-1

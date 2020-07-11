@@ -1,7 +1,7 @@
 ---
 layout: default
 title: About
-permalink: /about/
+permalink: /about
 ---
 
 ## Hi there, I'm Jason Chan and I just want to make **great games**.
