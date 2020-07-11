@@ -39,7 +39,7 @@ header_pages:
   - index.html
   - about.md
   - resume.md
-  - blog.html
+  - blog.md
   
 include:
   - ["_layouts"]
